@@ -1,0 +1,50 @@
+﻿@using TestCFT.Models
+@model OrderViewModel
+
+<div class="title">
+    <p>Изменить</p>
+</div>
+<div class="line">
+    <hr style="background-color:#000000;opacity:0.1;">
+</div>
+<form action="~/Home/Update" method="post">
+    <div>
+        <input style="display:none;" type="text" asp-for="Id" value="@Model.Id" />
+        <span class="valid-error" asp-validation-for="Name"></span>
+    </div>
+    <div>
+        <label asp-for="Name">Название:</label><br />
+        <input type="text" asp-for="Name" />
+        <span class="valid-error" asp-validation-for="Name"></span>
+    </div>
+    <div>
+        <label>Приложение:</label> <br />
+        <input type="text" asp-for="ApplicationName" list="application" value="@Model.ApplicationName" />
+        <datalist id="application">
+            @if (ViewBag.Applications != null)
+            {
+                @foreach (var application in ViewBag.Applications)
+                {
+                    <option value=@application.Name>
+                    </option>
+                }
+            }
+        </datalist>
+    </div>
+    <label asp-for="DataEnd">Дата окончания разработки:</label><br />
+    <input type="text" asp-for="DataEnd" />
+    <span class="valid-error" asp-validation-for="DataEnd"></span>
+    <div>
+        <label asp-for="Description">Описание:</label><br />
+        <input type="text" asp-for="Description" />
+        <span class="valid-error" asp-validation-for="Description"></span>
+    </div>
+    <div>
+        <label asp-for="Email">Email</label><br />
+        <input type="text" asp-for="Email" />
+        <span class="valid-error" asp-validation-for="Email"></span>
+    </div>
+
+    <button style="margin-top:10px;" class="btn btn-primary" type="submit">Отправить</button>
+</form>
+<div>Name - @Model.ApplicationName</div>

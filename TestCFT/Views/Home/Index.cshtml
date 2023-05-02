@@ -1,0 +1,81 @@
+﻿@using TestCFT.Models
+@model IEnumerable<OrderViewModel>
+
+<div class="title">
+    <h2>Заявки</h2>
+    <a href="/Home/Add" class="btn btn-primary">Добавить</a>
+</div>
+
+
+<table class="table">
+    <tr>
+        <th>
+            Название
+        </th>
+        <th>
+            Приложение
+        </th>
+        <th>
+            Дата окончания разработки
+        </th>
+        <th>
+            Описание
+        </th>
+        <th>
+            Email
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @item.Name
+            </td>
+            <td>
+                @item.ApplicationName
+            </td>
+            <td>
+                @item.DataEnd
+            </td>
+            <td>
+                @item.Description
+            </td>
+            <td>
+                @item.Email
+            </td>
+            <td>
+                @{
+                    var linkUpdate = "/Home/Update/" + item.Id.ToString();
+                }
+                <a href="@linkUpdate" class="btn btn-primary">Изменить</a>
+            </td>
+        </tr>
+    }
+</table>
+
+@{
+    var linkLast = "/Home/Index/" + (@ViewBag.PageInfo.TotalPages).ToString();
+}
+
+<nav aria-label="Page navigation example">
+    <ul class="pagination">
+        <li class="page-item">
+            <a class="page-link" href="/Home/Index/1" aria-label="Previous">
+                <span aria-hidden="true">&laquo;</span>
+                <span class="sr-only">Previous</span>
+            </a>
+        </li>
+        @for (int i = 1; i <= ViewBag.PageInfo.TotalPages; i++)
+        {
+            var link = "/Home/Index/" + i.ToString();
+            <li class="page-item"><a class="page-link" href="@link">@i</a></li>
+        }
+        <a class="page-link" href="@linkLast" aria-label="Next">
+            <span aria-hidden="true">&raquo;</span>
+            <span class="sr-only">Next</span>
+        </a>
+        </li>
+    </ul>
+</nav>
